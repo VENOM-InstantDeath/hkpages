@@ -1,8 +1,8 @@
 import random
-from requests import get
-from urllib import parse
+from requests import get  # requests.get, peticiones online.
+from urllib import parse  # Formatea un texto para que se pueda enviar a través de una URL, se usa para el comando math.
 from json import load
-td = load(open('modules/td.json', 'r'))
+td = load(open('modules/td.json', 'r'))  # Carga los datos del archivo td.json usado para el juego de verdad o reto.
 
 
 def chnick(subclient, *params) -> tuple:
@@ -58,7 +58,7 @@ def echo(*params) -> tuple:
     """
     if len(params[1]) < 1:
         return "Falta un argumento: <string>", 0
-    if len(params[1]) > 1 and params[1][1].isdigit():
+    if len(params[1]) > 1 and params[1][1].isdigit():  # Si se pasan dos argumentos, Tux entiende que el segundo argumento es un messageType.
         return params[1][0], int(params[1][1])
     return params[1][0], 0
 
@@ -96,14 +96,14 @@ def rm(subclient: object, *params) -> tuple:
     :type params: int, bool
     :rtype: tuple
     """
-    if params[0] and params[0][0].isdigit:
+    if params[0] and params[0][0].isdigit:  # Chequea que el parámetro sea un número (número de mensajes a eliminar)
         if int(params[0][0]) > 50:
             return "No voy a borrar tantos mensajes, alta flojera", 0
         msg = subclient.get_chat_messages(params[1].chatId, int(params[0][0])).messageId
-        if len(params[0]) > 1 and eval(params[0][1]):
+        if len(params[0]) > 1 and eval(params[0][1]):  # Eliminar mensajes como Staff
             for i in msg:
                 subclient.delete_message(chatId=params[1].chatId, messageId=i, asStaff=True, reason='-')
-        else:
+        else:  # Eliminar mensajes como anfitrión o coanfitrión.
             for i in msg:
                 subclient.delete_message(messageId=i, chatId=params[1].chatId)
         return f"Se han eliminado {len(msg)} mensajes", 0
@@ -139,18 +139,19 @@ def rand(*params) -> tuple:
         return "La lista presenta más o menos de 2 números", 0
 
 
-def truth(*params) -> tuple:
+def truth(*params) -> tuple:  # Verdad (Verdad o Reto)
     return random.choices(td['Truth'])[0]['summary'], 0
 
 
-def dare(*params) -> tuple:
+def dare(*params) -> tuple:  # Reto (Verdad o Reto)
     return random.choices(td['Dare'])[0]['summary'], 0
 
 
-def newton(*params) -> tuple:
+def newton(*params) -> tuple:  # Matemática, usa la Newton API para resolver ecuaciones.
     return get(f'https://newton.now.sh/api/v2/simplify/{parse.quote(params[1][0])}').json()['result'], 0
 
 
+# Diccionario de comandos vinculados a sus respectivas funciones
 CMDS = {
     'nickname': chnick,
     'bio': chbio,

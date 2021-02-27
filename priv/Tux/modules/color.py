@@ -1,3 +1,4 @@
+# Escapes ANSI para generar los colores.
 black = "\033[30m"
 red = "\033[1;31m"
 green = "\033[1;32m"

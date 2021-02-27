@@ -1,3 +1,5 @@
+# Módulo de ayuda que no llegué a utilizar.
+
 HELP = {
     'juego': {
         'jugar': 'Jugar a un juego\n\nparams: <juego>',
