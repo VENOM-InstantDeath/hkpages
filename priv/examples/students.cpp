@@ -15,7 +15,7 @@ struct estudiante {
 int main() {
 	estudiante P;
 	P.nombre = "Tomás";
-	P.mismaterias[0].nombremateria = "Matemática";
+	P.mismaterias[0].nombremateria = "Matematica";
 	P.mismaterias[0].nota1 = 80.0;
 	P.mismaterias[0].nota2 = 95.5;
 	P.mismaterias[0].notafinal = 100.0;
@@ -26,7 +26,7 @@ int main() {
 
 	estudiante O;
 	O.nombre = "Pedro";
-	O.mismaterias[0].nombremateria = "Matemática";
+	O.mismaterias[0].nombremateria = "Matematica";
 	O.mismaterias[0].nota1 = 30.5;
 	O.mismaterias[0].nota2 = 50.0;
 	O.mismaterias[0].notafinal = 44.0;
