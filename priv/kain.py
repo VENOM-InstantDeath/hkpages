@@ -8,9 +8,10 @@ def get(p):
     return x.stdout.read(), x.stderr.read().decode()
 
 
-print("Ruta del script (no incluye el script)")
-p=input("Input path: ")
-os.chdir(p)
-if not p.endswith('/'): p+='/'
-x, y = get(p)
-print(f"\n\n\n\nSTDOUT: {x}\n\nSTDERR: {y}")
+if __name__=="__main__":
+    print("Ruta del script (no incluye el script)")
+    p=input("Input path: ")
+    os.chdir(p)
+    if not p.endswith('/'): p+='/'
+    x, y = get(p)
+    print(f"\n\n\n\nSTDOUT: {x}\n\nSTDERR: {y}")
