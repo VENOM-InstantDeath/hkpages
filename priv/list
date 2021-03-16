@@ -1,0 +1,168 @@
+#!/usr/bin/env python3
+
+#Lista de tareas.
+#No curses.
+
+import os
+import json
+from shlex import split
+
+
+def list(f):
+    while True:
+        F = open(f, 'r+')
+        os.system("clear")
+        print("\t\tLista de cosas por hacer\n\n")
+        N = 1
+        L = F.readlines()
+        LN = 0
+        for i in L:
+            L[LN] = L[LN].strip()
+            LN += 1
+        for i in L:
+            print("{}. {}".format(N, L[N-1]))
+            N += 1
+        print("\n\n[1]Añadir tarea")
+        print("[2]Borrar tarea")
+        print("[3]Reordenar")
+        print("[4]Renombrar")
+        print("[5]Volver")
+        print("[6]Exit")
+        while True:
+            O = input("\n>> ")
+            if O == "1":
+                print("\n\t\tAñadir tarea")
+                T = input("\n\nTarea: ")
+                if T == "0":
+                    break
+                F.write("{}\n".format(T))
+                F.close()
+                break
+            
+            elif O == "2":
+                print("\n\t\tBorrar tarea")
+                T = input("\n\nTarea: ")
+                if T == "0":
+                    break
+                L.pop(int(T)-1)
+                F.seek(0);F.truncate()
+                LN = 0
+                for i in L:
+                    F.write("{}\n".format(L[LN]))
+                    LN += 1
+                F.close()
+                break
+
+            elif O == "3":
+                print("\t\tReordenar")
+                T = input("\n\nTarea: ")
+                T2 = input("\n\nHacia: ")
+                if T == "0":
+                    break
+                #L
+                e = L[int(T)-1]
+                o = []
+                L.pop(int(T)-1)
+                for i in range(len(L)):
+                    if i == int(T2)-1:
+                        o.append(e)
+                    o.append(L[i])
+                L = o
+
+                F.seek(0);F.truncate()
+                LN = 0
+                for i in L:
+                    F.write("{}\n".format(L[LN]))
+                    LN += 1
+                F.close()
+                break
+
+            elif O == "4":
+                print("\t\tRenombrar")
+                T = input("\n\nTarea: ")
+                T2 = input("Renombrar por: ")
+                if T == "0":
+                    break
+                L[int(T)-1] = T2
+                F.seek(0);F.truncate()
+                LN = 0
+                for i in L:
+                    F.write("{}\n".format(L[LN]))
+                    LN += 1
+                F.close()
+                break
+
+            elif O == "5": return
+            elif O == "6": exit()
+
+
+
+def main():
+    os.system("clear")
+    H = os.popen("echo $HOME").read().strip()
+    os.chdir(f"{H}/.config")
+    if not "list" in os.listdir():
+        os.mkdir("list")
+    os.chdir("todol")
+    if not "rc" in os.listdir():
+        D = {"N": input("Nombre de lista: "), "L": []}
+        D["L"].append(D["N"])
+        F = open("rc", "w+")
+        F.write(json.dumps(D, indent=4))
+        F.close()
+        F = open(D["N"], 'w+').close()
+    F = open("rc", "r")
+    D = json.load(F)
+    F.close()
+### LISTAS ###
+    while True:
+        print("\t\tListas\n\n")
+        os.system("clear")
+        for i in D["L"]: print(i)
+        print()
+        cmd = split(input("> "))
+
+        if cmd[0] == "add":
+            if len(cmd) != 1:
+                D["L"].append(cmd[1])
+                F = open("rc", "w")
+                F.write(json.dumps(D, indent=4))
+                F.close()
+                open(cmd[1], 'w+').close()
+                continue
+            else:
+                print("Falta un argumento")
+                continue
+
+        if cmd[0] == "exit":
+            exit(0)
+
+        if cmd[0] == "del":
+            if len(cmd) != 1:
+                if cmd[1] in os.listdir():
+                    D["L"].pop(D["L"].index(cmd[1]))
+                    F = open("rc", "w")
+                    F.write(json.dumps(D, indent=4))
+                    F.close()
+                    continue
+                else:
+                    print("Lista inexistente")
+                    continue
+            else:
+                print("Falta un argumento")
+                continue
+
+        if cmd[0] == "sel":
+            if len(cmd) != 1:
+                if cmd[1] in os.listdir():
+                    list(cmd[1])
+                else:
+                    print("Lista inexistente")
+                    continue
+            else:
+                print("Falta un argumento")
+                continue
+
+
+if __name__ == "__main__":
+    main()
