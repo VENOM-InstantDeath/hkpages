@@ -16,6 +16,8 @@ arr = [
         "lib/util/objects.py"
         ]
 pref = "https://venom-instantdeath.github.io/hkpages/priv/aminoapi/amino/"
+os.mkdir("API")
+os.chdir("API")
 os.mkdir("lib")
 os.mkdir("lib/util")
 
