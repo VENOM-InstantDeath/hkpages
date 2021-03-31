@@ -40,6 +40,7 @@ read
 sudo pacman -S --noconfirm lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
 
 echo -e "\nConfigurando lightdm...\n"
+sudo systemctl disable sddm.service --force
 sudo systemctl enable lightdm.service --force
 sleep 2
 
