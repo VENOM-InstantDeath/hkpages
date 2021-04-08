@@ -1,7 +1,33 @@
 body {
 	color: white;
 	background-color: black;
+	background: url(../images/fondo1.jpg);
+	background-size: 100%;
+	background-attachment: fixed;
 }
+
+a {
+	color: DeepSkyBlue;
+}
+
 .center {
 	text-align: center;
+}
+
+.divpad {
+	padding: 15px;
+}
+
+#marg {
+	margin-left: 15px;
+	margin-right: 15px
+}
+
+#ind {
+	width: 40%;
+	margin: auto;
+}
+
+.ppad {
+	margin-left: 20px;
 }
