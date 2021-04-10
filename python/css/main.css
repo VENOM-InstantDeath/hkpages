@@ -23,9 +23,11 @@ a {
 	margin-right: 15px
 }
 
-#ind {
-	width: 40%;
-	margin: auto;
+@media (orientation: landscape) {
+	#ind {
+		width: 40%;
+		margin: auto;
+	}
 }
 
 .ppad {
