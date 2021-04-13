@@ -7,3 +7,4 @@ document.getElementById("beqtwo").addEventListener("click", function(){document.
 document.getElementById("bsqtwo").addEventListener("click", function(){document.getElementById("qtwo").innerHTML = " Correcto"});
 document.getElementById("beqthree").addEventListener("click", function(){document.getElementById("qthree").innerHTML = " Incorrecto"});
 document.getElementById("bsqthree").addEventListener("click", function(){document.getElementById("qthree").innerHTML = " Correcto"});
+document.getElementById("prev").addEventListener("click", window.location.replace('https://google.com'))
