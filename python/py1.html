@@ -1,14 +1,72 @@
 <html>
 	<head>
-		<title>Python Index</title>
+		<title>Python #1</title>
 		<link rel="stylesheet" href="css/main.css">
 		<link rel="icon" type="image/png" href="images/favicon.png">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
-		<h1 class="center">Python de 0 a 1000 #1</h1>
+		<h1 class="center"><a href="index.html" style="text-decoration: none; color: white">Python de 0 a 1000 #1</a></h1>
 		<hr>
-		<div id="marg" style="background-color: rgba(0,0,0,.8)">
+		<div id="marg" class="opa">
+			<div class="divpad">
+				<p>Con este capítulo se inaugura la serie de blogs Python de 0 a 1000, el formato del título de estos blogs son copiados de la serie de blogs "Manejando la terminal de 0 a 1000". Evidentemente el autor se está quedando sin ideas para sus títulos.</p>
+				<p>Bien se sabe que la carencia de ideas del autor no son el enfoque que pretende este blog, así que apuntaremos a lo importante: Python.</p>
+				<p class="center"><strong>Al momento de subir la presente guía, la última versión de Python es la 3.9.1. Para seguir esta guía se debe usar Python 3 o superior</strong></p>
+				<p>Python es un lenguaje imperativo interpretado, es multiparadigma, pero la presencia de objetos es muy abundante. Para ser más preciso, todo es un objeto en Python, por ende no sería erróneo decir que es un lenguaje orientado a objetos.</p>
+				<p>En este blog, a modo de introducción a este lenguaje, comenzaremos por entender qué son las operaciones de entrada y salida y cómo se manejan en Python</p>
+				<hr style="margin-top: 35px">
+				<p class="center">Antes de comenzar, es importante primero tener Python, sino no será posible seguir la guía.</p>
+				<h2 class="center">Windows</h2>
+				<p class="center">Para descargar Python en Windows, visita el siguiente link: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
+				<p class="center">Una vez ahí, presiona el botón "Download Python 3.x.x"</p>
+				<img class="icenter" style="height: 400px; width: auto" src="images/py1-1.jpg">
+				<p class="center">Comenzará la descarga del instalador de Python, una vez terminado, presiona en el ejecutable.</p>
+				<img class="icenter" style="height: 200px; width: auto" src="images/py1-2.jpg">
+				<p class="center"><strong>Tras presionar se abrirá el instalador, chequea la casilla "Add Python to PATH" y luego pulsa en Install Now.</strong></p>
+				<img class="icenter" style="height: 400px; width: auto" src="images/py1-3.jpg">
+				<p>Tras haber hecho eso la instalación habrá terminado y ya puedes usar Python. Para hacer pruebas y ejecutar las cosas mostradas en este blog, abre el cmd (símbolo del sistema) usando las teclas HOME + R y escribiendo cmd.exe. Una vez dentro del cmd, usando el comando <code>python</code> se abrirá el interprete de Python.</p>
+				<h2 class="center">GNU/Linux</h2>
+				<p>Instalar Python en GNU/Linux es... Simple, como todo en GNU/Linux. Abre una terminal y usa tu gestor de paquetes para instalar el paquete Python. Python está en los repositorios de todas las distribuciones GNU/Linux</p>
+				<p>Si no sabes cuál es tu gestor de paquetes, visita el siguiente blog para saber cuál es tu gestor y cómo usarlo para instalar Python:<a href="http://aminoapps.com/p/yc3te5"> http://aminoapps.com/p/yc3te5</a></p>
+				<p>Una vez Python esté instalado puedes abrirlo con el comando Python para probar los comandos de este blog.</p>
+				<hr style="margin-top: 35px">
+				<p>Para explicar las operaciones de entrada y salida (I/O) tomaré prestado un fragmento del blog "Subsistema de TTY #2" de la serie de blogs sobre Unix.</p>
+				<p style="font-style: italic">"Anteriormente se habló de operaciones de entrada y salida, para aquellos que no saben qué significa esto, lo explicaré, es sencillo. Se llama salida a todo dato que un programa envía a otro programa, archivo, o a un dispositivo físico. Un ejemplo de lo anterior es cuando un programa imprime cosas en la pantalla, o cuando un programa envía datos a una impresora para que esta imprima. En este caso, el programa envía esos datos (salida) y la impresora los recibe y los procesa (entrada). Así como la salida son los datos que un programa envía o escribe, la entrada son los datos que un programa recibe, por ejemplo, cuando escribes en una terminal, el intérprete de comandos bash, por decir un ejemplo, lee (recibe) las letras que ingresas a través del teclado"</p>
+				<p>Sabiendo ahora la explicación teórica, propongo dos preguntas y tienen que buscar la respuesta por sus cuentas, si aciertan las dos veces significa que entendieron bien. Si le erran a una, lo más probable es que se corrijan leyendo la respuesta.</p>
+				<h3 class="center">1. Si mientras uso un programa presiono una tecla del teclado, los bits que recibe el programa, ¿Son entrada o salida?<code id="qone"></code></h3>
+				<div style="text-align: center">
+					<button style="margin: 0 auto; margin-right: 10px;display: inline-block" id="beqone">Entrada</button>
+					<button style="margin: 0 auto; display: inline-block" id="bsqone">Salida</button>
+				</div>
+				<h3 class="center">2. Cuando su navegador le muestra este mismo texto. ¿Es entrada o salida?<code id="qtwo"></code></h3>
+				<div style="text-align: center">
+					<button style="margin: 0 auto; margin-right: 10px;display: inline-block" id="beqtwo">Entrada</button>
+					<button style="margin: 0 auto; display: inline-block" id="bsqtwo">Salida</button>
+				</div>
+				<p>Lo primera operación que se mostrará en este lenguaje es una tradición en la comunidad de programadores. Cuando se va a empezar un nuevo lenguaje, lo primero que se hace es imprimir las palabras "Hello world" en la pantalla.</p>
+				<h3 style="font-style: italic">Pregunta extra: Imprimir las palabras "Hello world" en la pantalla, ¿es una operación de entrada o salida?<code id="qthree"></code></h3>
+				<div style="text-align: center">
+					<button style="margin: 0 auto; margin-right: 10px;display: inline-block" id="beqthree">Entrada</button>
+					<button style="margin: 0 auto; display: inline-block" id="bsqthree">Salida</button>
+				</div>
+				<p>Para imprimir texto en la pantalla usaremos la función <code>print()</code>, esta imprime cualquier dato que se le pase entre los paréntesis. En este caso, para imprimir Hello world usaremos:</p>
+				<code>print("Hello world")</code>
+				<p>Habiendo hecho esto ya dimos nuestro primer paso en este lenguaje. Ahora sabemos que para las operaciones de salida usaremos <code>print()</code></p>
+				<p>Para tomar la entrada del teclado usaremos la función <code>input()</code>, que lee la entrada del teclado hasta que se pulsa la tecla ENTER. A diferencia de <code>print()</code>, lo que va dentro de los parámetros de <code>input()</code> es el prompt*.</p>
+				<p style="font-style: italic" class="center">Prompt: Un prompt es un conjunto de caracteres que se muestran en un programa para indicar que se tiene que ingresar algo a través del teclado.</p>
+				<p><code>input()</code> primero imprimirá el prompt y luego procederá a leer la entrada del teclado. Por ejemplo, si se quiere pedir el nombre del usuario se usa:</p>
+				<code>input("Nombre: ")</code>
+				<img class="icenter" src="images/py1-4.jpg" style="height: 200px; width: auto">
+				<p>Si <code>input()</code> no recibe ningún argumento, se tomará la entrada sin imprimir ningún prompt.</p>
+				<p>Lo que <code>input()</code> obtiene del teclado se descarta porque no conocemos un lugar donde guardar esa información aún, entonces en el ejemplo anterior preguntar el nombre del usuario no es que haya sido inútil porque los datos se vayan a descartar, sino que para guardar esos datos hay que hacer uso de un elemento que aún desconocemos. ¡Sabiendo esto habremos completado el primer tema, operaciones de entrada y salida!</p>
+				<hr style="margin-top: 35px">
+				<div class="center">
+					<button id="prev" style="margin-right: 50px" class="sbutton">Previo</button>
+					<button id="next" class="sbutton">Siguiente</button>
+				</div>
+			</div>
 		</div>
 	</body>
+	<script src="js/py1.js"></script>
 </html>

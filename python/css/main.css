@@ -1,15 +1,14 @@
 body {
 	color: white;
-	background-color: black;
-	background-size: 100%;
-	background-attachment: fixed;
 }
 
-@media (orientation: landscape) {
+@media (min-width: 1000px) {
 	body {
 		background: url(../images/fondo1.jpg);
-		background-size: 100%;
+		background-size: cover;
 		background-attachment: fixed;
+		background-repeat: no-repeat;
+		background-position: center;
 
 	}
 }
@@ -32,6 +31,13 @@ a {
 	text-align: center;
 }
 
+.icenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
+
 .divpad {
 	padding: 15px;
 }
@@ -50,4 +56,26 @@ a {
 
 .ppad {
 	margin-left: 20px;
+}
+
+.opa {
+	background-color: rgba(0,0,0,.8);
+}
+
+.sbutton {
+	height: 40px;
+	width: 100px;
+	border: 0px solid;
+	background: gray;
+	color: black;
+}
+
+@media (max-width: 1000px) {
+	.opa {
+		background-color: rgba(0,0,0,.6);
+	}
+}
+
+code {
+	color: chartreuse;
 }
