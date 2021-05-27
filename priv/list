@@ -10,18 +10,14 @@ from shlex import split
 
 def list(f):
     while True:
-        F = open(f, 'r+')
+        F = open(f, 'r')
         os.system("clear")
         print("\t\tLista de cosas por hacer\n\n")
-        N = 1
-        L = F.readlines()
-        LN = 0
-        for i in L:
-            L[LN] = L[LN].strip()
-            LN += 1
-        for i in L:
-            print("{}. {}".format(N, L[N-1]))
-            N += 1
+        L = [i.strip() for i in F.readlines()]
+
+        for i in range(len(L)):
+            print(f"{i + 1}. {L[i]}")
+
         print("\n\n[1]Añadir tarea")
         print("[2]Borrar tarea")
         print("[3]Reordenar")
@@ -35,7 +31,9 @@ def list(f):
                 T = input("\n\nTarea: ")
                 if T == "0":
                     break
-                F.write("{}\n".format(T))
+                L.append(T)
+                F = open(f, 'w')
+                for i in L: F.write(f"{i}\n")
                 F.close()
                 break
             
@@ -45,11 +43,8 @@ def list(f):
                 if T == "0":
                     break
                 L.pop(int(T)-1)
-                F.seek(0);F.truncate()
-                LN = 0
-                for i in L:
-                    F.write("{}\n".format(L[LN]))
-                    LN += 1
+                F = open(f, 'w')
+                for i in L: F.write(f"{i}\n")
                 F.close()
                 break
 
@@ -59,21 +54,11 @@ def list(f):
                 T2 = input("\n\nHacia: ")
                 if T == "0":
                     break
-                #L
                 e = L[int(T)-1]
-                o = []
-                L.pop(int(T)-1)
-                for i in range(len(L)):
-                    if i == int(T2)-1:
-                        o.append(e)
-                    o.append(L[i])
-                L = o
-
-                F.seek(0);F.truncate()
-                LN = 0
-                for i in L:
-                    F.write("{}\n".format(L[LN]))
-                    LN += 1
+                L[int(T)-1] = L[int(T2)-1]
+                L[int(T2)-1] = e
+                F = open(f, 'w')
+                for i in L: F.write(f"{i}\n")
                 F.close()
                 break
 
@@ -84,17 +69,13 @@ def list(f):
                 if T == "0":
                     break
                 L[int(T)-1] = T2
-                F.seek(0);F.truncate()
-                LN = 0
-                for i in L:
-                    F.write("{}\n".format(L[LN]))
-                    LN += 1
+                F = open(f, 'w')
+                for i in L: F.write(f"{i}\n")
                 F.close()
                 break
 
             elif O == "5": return
             elif O == "6": exit()
-
 
 
 def main():
@@ -105,7 +86,11 @@ def main():
         os.mkdir("list")
     os.chdir("todol")
     if not "rc" in os.listdir():
-        D = {"N": input("Nombre de lista: "), "L": []}
+        D = {
+                "N": input("Nombre de lista: "),
+                "L": [],
+                "T": {}
+                }
         D["L"].append(D["N"])
         F = open("rc", "w+")
         F.write(json.dumps(D, indent=4))
@@ -114,6 +99,7 @@ def main():
     F = open("rc", "r")
     D = json.load(F)
     F.close()
+
 ### LISTAS ###
     while True:
         print("\t\tListas\n\n")
@@ -124,23 +110,84 @@ def main():
 
         if cmd[0] == "add":
             if len(cmd) != 1:
-                D["L"].append(cmd[1])
+                cmd[1] = cmd[1].split(':') if len(cmd[1].split(':')) == 2 else (None,cmd[1])
+                tem = cmd[1][0] if type(cmd[1]) != list else []
+                D["L"].append(cmd[1][1])
                 F = open("rc", "w")
                 F.write(json.dumps(D, indent=4))
                 F.close()
-                open(cmd[1], 'w+').close()
+                if tem and tem in D['T']:
+                    F = open(cmd[1][1], 'w+')
+                    F.write(D['T'][cmd[1][0]])
+                    F.close()
+                else:
+                    open(cmd[1][1], 'w+').close()
                 continue
             else:
                 print("Falta un argumento")
                 continue
 
-        if cmd[0] == "exit":
+        if cmd[0] == "tadd":
+            tem = input("Nombre de plantilla: ") if len(cmd) != 2 else cmd[1]
+            if tem in D['T']: continue
+            print("\nEscribe el contenido de la plantilla. Para finalizar añade un '.' en una línea nueva\n")
+            line = ''
+            while True:
+                ll = input()
+                if ll == '.':
+                    break
+                line += ll + '\n'
+            D['T'][tem] = line
+            F = open("rc", "w")
+            F.write(json.dumps(D, indent=4))
+            F.close()
+            continue
+
+        if cmd[0] == "ted":
+            tem = input("Nombre de plantilla: ") if len(cmd) != 2 else cmd[1]
+            if tem not in D['T']: continue
+            print("\nEscribe el contenido de la plantilla. Para finalizar añade un '.' en una línea nueva\n")
+            line = ''
+            while True:
+                ll = input()
+                if ll == '.':
+                    break
+                line += ll +'\n'
+            D['T'][tem] = line
+            F = open('rc', 'w')
+            F.write(json.dumps(D, indent=4))
+            F.close()
+            continue
+
+        if cmd[0] == "trm":
+            tem = input("Nombre de plantilla: ") if len(cmd) != 2 else cmd[1]
+            if tem not in D['T']: continue
+            D['T'].pop(tem)
+            F = open('rc', 'w')
+            F.write(json.dumps(D, indent=4))
+            F.close()
+            continue
+
+        if cmd[0] == "tls":
+            for i in D['T']: print(i)
+            input()
+            continue
+        
+        if cmd[0] == "tsh":
+            tem = input("Nombre de plantilla: ") if len(cmd) != 2 else cmd[1]
+            if tem not in D['T']: continue
+            print(D['T'][tem])
+            input()
+            continue
+
+        if cmd[0] == "exit" or cmd[0] == 'q':
             exit(0)
 
         if cmd[0] == "del":
             if len(cmd) != 1:
                 if cmd[1] in os.listdir():
                     D["L"].pop(D["L"].index(cmd[1]))
+                    os.remove(cmd[1])
                     F = open("rc", "w")
                     F.write(json.dumps(D, indent=4))
                     F.close()
