@@ -21,9 +21,19 @@ os.chdir("amino")
 os.mkdir("lib")
 os.mkdir("lib/util")
 
+print("\tDownloading amino.py files")
+
 for i in arr:
     print(f"Downloading {i}")
-    r = requests.get(f"{pref}/{i}")
+    if i == "__init__.py":
+        r = requests.get("https://raw.githubusercontent.com/VENOM-InstantDeath/hkpages/main/priv/aminoapi/amino/__init__.py")
+    elif i == "lib/__init__.py":
+        f = open(i, "w+").close()
+        continue
+    elif i == "lib/util/__init__.py":
+        r = requests.get("https://raw.githubusercontent.com/VENOM-InstantDeath/hkpages/main/priv/aminoapi/amino/lib/util/__init__.py")
+    else:
+        r = requests.get(f"{pref}/{i}")
     f = open(i, "w+")
     f.write(r.text)
     f.close()
