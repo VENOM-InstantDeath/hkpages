@@ -30,6 +30,8 @@ for i in arr:
     f.write(r.text)
     f.close()
 
+os.chdir("..")
+
 print("\tDownloading program files")
 
 arr = [
