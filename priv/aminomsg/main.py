@@ -104,7 +104,7 @@ def main(stdscr):
     curses.init_pair(196, 196, -1)
     curses.init_pair(34, 34, -1)
     curses.echo()
-    stdscr.addstr(2,max.cenx-len("amino id finder")//2,"Amino ID Finder", curses.color_pair(196))
+    stdscr.addstr(2,max.cenx-len("amino send special msg")//2,"Amino Send Special Msg", curses.color_pair(196))
     stdscr.addstr(4,max.cenx-len("by: darth venom")//2,"By: Darth Venom", curses.color_pair(34))
     stdscr.addstr(6,max.cenx-len("inicia sesion")//2,"Inicia sesión", curses.A_UNDERLINE)
         
