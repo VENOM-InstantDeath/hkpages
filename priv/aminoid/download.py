@@ -27,6 +27,8 @@ for i in arr:
     print(f"Downloading {i}")
     if i == "__init__.py":
         r = requests.get("https://raw.githubusercontent.com/VENOM-InstantDeath/hkpages/main/priv/aminoid/amino/__init__.py")
+    elif i == "lib/__init__.py":
+        r = requests.get("https://raw.githubusercontent.com/VENOM-InstantDeath/hkpages/main/priv/aminoid/amino/lib/__init__.py")
     elif i == "lib/util/__init__.py":
         r = requests.get("https://raw.githubusercontent.com/VENOM-InstantDeath/hkpages/main/priv/aminoid/amino/lib/util/__init__.py")
     else:
