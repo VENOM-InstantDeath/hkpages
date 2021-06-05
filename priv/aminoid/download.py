@@ -25,7 +25,10 @@ print("\tDownloading amino.py files")
 
 for i in arr:
     print(f"Downloading {i}")
-    r = requests.get(f"{pref}/{i}")
+    if i == "__init__.py":
+        r = requests.get("https://raw.githubusercontent.com/VENOM-InstantDeath/hkpages/main/priv/aminoid/amino/__init__.py")
+    else:
+        r = requests.get(f"{pref}/{i}")
     f = open(i, "w+")
     f.write(r.text)
     f.close()
