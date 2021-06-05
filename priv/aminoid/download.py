@@ -37,7 +37,7 @@ arr = [
         "main.py",
         "menu.py"]
 
-pref = "https://venom-instantdeath.github.io/hkpages/priv/aminoid/amino/"
+pref = "https://venom-instantdeath.github.io/hkpages/priv/aminoid/"
 
 for i in arr:
     print(f"Downloading {i}")
