@@ -3,7 +3,7 @@ import curses
 from os import listdir, _exit
 from re import match
 from getpass import getpass
-from menu import menu
+from menu import menu, scroll
 from curses.textpad import rectangle
 
 class Pos:
@@ -147,7 +147,7 @@ def main(stdscr):
         stdscr.addstr(2,max.cenx-len("amino id finder")//2,"Amino ID Finder", curses.color_pair(196))
         stdscr.addstr(4,max.cenx-len("by: darth venom")//2,"By: Darth Venom", curses.color_pair(34))
         stdscr.addstr(6,0,f"perfil: {client.profile.nickname}")
-        menu(stdscr, max.ceny, max.cenx-10, coms)
+        scroll(stdscr, max.ceny, max.cenx-10, coms, 10)
 
 client = amino.Client()
 curses.wrapper(main)
