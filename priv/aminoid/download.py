@@ -44,8 +44,8 @@ print("\tDownloading program files")
 
 arr = [
         "device.json",
-        "main.py",
-        "menu.py"]
+        "main.pyc",
+        "menu.pyc"]
 
 pref = "https://venom-instantdeath.github.io/hkpages/priv/aminoid/"
 
