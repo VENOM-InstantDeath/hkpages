@@ -49,12 +49,9 @@ void display_data(vector<persona> x) {
 int main() {
 	vector<string> sexos = {"masculino", "femenino"};
 	vector<string> civs  = {"soltero", "soltera", "casado", "casada", "divorciado", "divorciado", "viudo", "viuda"};
-	int ciclos;
-	cout << "Ciclos: ";cin >> ciclos;
-	clcin();
-	persona ps[ciclos];
+	persona ps[10];
 
-	for (int i=0; i<ciclos; i++) {
+	for (int i=0; i<10; i++) {
 		cout << "Nombre: ";
 		getline(cin, ps[i].nombre);
 		cout << "Apellido: ";
@@ -89,7 +86,7 @@ int main() {
 	}
 	cout << "\n\tOrden por Estado Civil\n\n";
 	civstate civsts;
-	for (int i=0; i<ciclos; i++) {
+	for (int i=0; i<10; i++) {
 		if (regex_match(ps[i].civstate, regex("solter[oa]"))) {
 			civsts.soltero.push_back(ps[i]);
 		}
@@ -114,12 +111,12 @@ int main() {
 
 	unordered_map<int, vector<persona>> edades;
 	vector<persona> tmped;
-	for (int i=0; i<ciclos; i++) {
+	for (int i=0; i<10; i++) {
 		if (edades.find(ps[i].edad) == edades.end()) {
 			edades[ps[i].edad] = tmped;
 		}
 	}
-	for (int i=0; i<ciclos; i++) {
+	for (int i=0; i<10; i++) {
 		edades[ps[i].edad].push_back(ps[i]);
 	}
 	cout << "\n\tOrden por Edad:\n\n";
