@@ -1,0 +1,51 @@
+#!/bin/bash
+
+printf "\n\n\t\tInstalador de TLauncher\n";
+printf "\t\t   By: Darth Venom\n\n\n";
+if [ $EUID != 0 ]; then
+	printf "\033[1;31mPara ejecutar este script se requieren permisos de superusuario\033[0m\n";
+	printf "\nDetalles:\n\t1. Mover atajos de TLauncher a directorios especiales\n";
+	printf "\t2. Crear ejecutable de TLauncher\n";
+	echo;
+	exit 1;
+fi;
+if [ -z $1 ]; then
+	printf "\033[1;31mPara ejecutar este script se debe especificar el usuario actual.\033[0m\n";
+	printf "\nSe hace del siguiente modo:\n";
+	printf 'sudo install-tlauncher $USER\n';
+	echo;
+	exit 1;
+fi;
+if [ ! -d /home/$1 ]; then
+	printf "\033[1;31mEl usuario especificado no existe.\033[0m\n";
+	printf "\nEste programa debe ejecutarse del siguiente modo:\n";
+	printf 'sudo install-tlauncher $USER\n';
+	echo;
+	exit 1;
+fi;
+old=$PWD;
+mkdir -p /home/$1/.minecraft;
+cd /home/$1/.minecraft;
+wget --content-disposition "https://tlauncher.org/jar";
+unzip $(ls | grep -o -P 'TLauncher-[0-9.]*\.zip');
+
+echo "DEBUG: $PWD"
+ls | grep -o -P 'TLauncher-[0-9.]*\.jar'
+ls | grep -o -P 'TLauncher-[0-9.]*\.zip'
+
+rm $(ls | grep -o -P 'TLauncher-[0-9.]*\.zip');
+ls | grep -o -P 'TLauncher-[0-9.]*\.jar'
+echo "java -jar /home/$1/.minecraft/$(ls | grep -o -P 'TLauncher-[0-9.]*\.jar') &" > tlauncher;
+chmod +x tlauncher
+mv tlauncher /usr/bin/
+echo "[Desktop Entry]" > tlauncher.desktop;
+echo "Name=TLauncher" >> tlauncher.desktop;
+echo "Categories=Application;Game" >> tlauncher.desktop;
+echo "Exec=/usr/bin/tlauncher %u" >> tlauncher.desktop;
+echo "Terminal=false" >> tlauncher.desktop;
+echo "Type=Application" >> tlauncher.desktop;
+mv tlauncher.desktop /usr/share/applications/;
+printf "\n\nTLauncher ha sido instalado exitósamente\n\n"
+chmod -R a+wr /home/$1/.minecraft
+cd $old
+rm $0
